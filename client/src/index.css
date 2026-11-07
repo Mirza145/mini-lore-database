@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  --color-parchment: #f8f2e7;
+  --color-parchment-light: #fdfaf3;
+  --color-parchment-deep: #efe3cd;
+  --color-ink: #16233f;
+  --color-ink-soft: #44506b;
+  --color-ink-muted: #6f7789;
+  --color-line: #e3d8c2;
+  --color-crimson: #b3202a;
+  --color-crimson-dark: #8e1720;
+  --color-gold: #c9942f;
+  --color-gold-soft: #f0dfae;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-parchment text-ink antialiased;
+    background-image:
+      radial-gradient(ellipse at 15% -10%, rgba(201, 148, 47, 0.12), transparent 55%),
+      radial-gradient(ellipse at 95% 0%, rgba(179, 32, 42, 0.06), transparent 45%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(201, 148, 47, 0.3);
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-ink;
+    font-variation-settings: "opsz" 48;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-2xl border border-line bg-parchment-light/90 shadow-[0_1px_2px_rgba(22,35,63,0.04),0_18px_40px_-32px_rgba(22,35,63,0.4)];
+  }
+
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost,
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply bg-crimson text-white shadow-[0_8px_20px_-12px_rgba(179,32,42,0.9)] hover:bg-crimson-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson;
+  }
+
+  .btn-secondary {
+    @apply border border-line bg-parchment-light text-ink hover:border-gold/70 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+  }
+
+  .btn-ghost {
+    @apply text-ink-soft hover:bg-ink/5 hover:text-ink;
+  }
+
+  .btn-danger {
+    @apply bg-crimson/10 text-crimson hover:bg-crimson/15;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-line bg-white/80 px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none transition placeholder:text-ink-muted/70 focus:border-gold focus:ring-2 focus:ring-gold/25;
+  }
+
+  .label {
+    @apply mb-1.5 block text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink-soft;
+  }
+
+  .eyebrow {
+    @apply text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-gold;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-parchment-light px-2.5 py-1 text-xs font-medium text-ink-soft;
+  }
+
+  .link-underline {
+    @apply decoration-gold/60 underline-offset-4 hover:underline;
+  }
+
+  .paper-grid {
+    background-image:
+      linear-gradient(rgba(22, 35, 63, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(22, 35, 63, 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .fade-in {
+    animation: fade-in 220ms ease-out;
+  }
+
+  .rise-in {
+    animation: rise-in 260ms ease-out;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
