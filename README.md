@@ -128,6 +128,16 @@ This deletes all current records and inserts the sample universe again. **Do not
 
 ## Sharing with friends (Cloudflare tunnel)
 
+## Hosting it online (Cloudflare Pages + Render + MongoDB Atlas)
+
+The tunnel above is only live while your PC runs. To host the app 24/7 on free tiers:
+
+1. **Database** – create a free [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) M0 cluster, make a database user, and copy the `mongodb+srv://…` connection string (replace `<password>`).
+2. **API** – push this repo to GitHub, then create a free [Render](https://render.com) web service from the repo using the included `render.yaml`. Set the `MONGODB_URI` secret to your Atlas string and `CLIENT_ORIGIN` to your Cloudflare Pages URL.
+3. **Frontend** – build the client (`cd client && VITE_API_URL=https://<your-render-app>.onrender.com/api npm run build`) and deploy `client/dist` to [Cloudflare Pages](https://pages.cloudflare.com).
+
+Related limitations: the Render free tier sleeps after ~15 minutes idle (first visitor waits ~40&nbsp;s), and anyone with the frontend link can edit and delete — add real authentication before sharing a public URL widely.
+
 The API has no accounts, but it stays on `127.0.0.1` — so the safe way to share is a Cloudflare quick tunnel: the app still runs on your machine, and Cloudflare hands out a public link.
 
 ```powershell

@@ -1,0 +1,30 @@
+# Render blueprint for the Mini Lore Database API.
+# Deploy from the Render "New +" -> Blueprint flow, or set these by hand in the dashboard.
+services:
+  - type: web
+    name: mini-lore-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: USE_MEMORY_DB
+        value: false
+      - key: MEMORY_DB_PERSIST
+        value: false
+      - key: AUTO_SEED
+        value: true
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      # Paste your Atlas string with <password> replaced. Keep secret.
+      - key: MONGODB_URI
+        sync: false
+      # The Cloudflare Pages URL of the frontend, e.g. https://your-app.pages.dev
+      - key: CLIENT_ORIGIN
+        sync: false

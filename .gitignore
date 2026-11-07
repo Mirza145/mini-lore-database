@@ -11,6 +11,9 @@ build/
 .env.*.local
 server/.env
 
+# Deploy artifacts
+.wrangler/
+
 # Local database files for in-memory MongoDB
 server/.mongo-data/
 
