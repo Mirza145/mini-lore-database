@@ -126,6 +126,31 @@ npm run seed
 
 This deletes all current records and inserts the sample universe again. **Do not run it against a database you care about.**
 
+## Sharing with friends (Cloudflare tunnel)
+
+The API has no accounts, but it stays on `127.0.0.1` — so the safe way to share is a Cloudflare quick tunnel: the app still runs on your machine, and Cloudflare hands out a public link.
+
+```powershell
+# 1. Start the API (keep this window running)
+cd server
+npm run dev
+
+# 2. Start the frontend (keep this window running)
+cd ..\client
+npm run dev
+
+# 3. Open the tunnel (keep this window running)
+C:\Users\<you>\.cloudflared\cloudflared.exe tunnel --url http://localhost:5173
+```
+
+`cloudflared` prints a `https://<random-words>.trycloudflare.com` link. Share that with anyone; Vite is already configured to accept `*.trycloudflare.com` hosts.
+
+Things to know:
+
+- The link only works while your PC is on and all three windows are running.
+- The URL is **new every time** you restart the tunnel. For a permanent link, create a free Cloudflare account and use a [named tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/).
+- Fail-safe: the API's rate limits and validation still apply to visitors, but there is no login. Anyone with the link can add, edit and delete notes — share only with people you trust.
+
 ## API overview
 
 All responses use `{ "data": ... }` on success and `{ "error": { "message": "...", "details": [...] } }` on failure.

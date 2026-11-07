@@ -12,5 +12,7 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    // Allow trycloudflare.com quick-tunnel subdomains so friends can open the shared link.
+    allowedHosts: ['.trycloudflare.com'],
   },
 });
